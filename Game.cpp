@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 
 bool Game::init(const char *title, int xpos, int ypos, int width, int height, int flags) {
-  if ( !TheTextureMnager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer))
+  if ( !TheTextureManager::Instance()->load("Assets/animate-alpha.png", "animate", m_pRenderer))
   {
     return false;
   }
@@ -53,15 +53,16 @@ void Game::update()
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);  
-  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+  //SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+ // m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
+ // m_textureManager.drawFrame("animate", 100,100, 128, 82, 0, m_currentFrame, m_pRenderer);
+
+  TheTextureManager::Instance()->draw("animate", 0,0, 128, 82, m_pRenderer);
+
+  TheTextureManager::Instance()->drawFrame("animate", 100,100, 128, 82, 0, m_currentFrame, m_pRenderer);
+
   SDL_RenderPresent(m_pRenderer); 
 
-  m_textureManager.draw("animate", 0,0, 128, 82, m_pRenderer);
-  m_textureManager.drawFrame("animate", 100,100, 128, 82, 0, m_currentFrame, m_pRenderer);
-
-  TheTextureMnager::Instance()->draw("animate", 0,0, 128, 82, m_pRenderer);
-
-  TheTextureMnager::Instance()->drawFrame("animate", 100,100, 128, 82, 0, m_currentFrame, m_pRenderer);
 }
 
 bool Game::running()

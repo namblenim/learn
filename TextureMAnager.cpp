@@ -6,7 +6,7 @@
 
 TextureManager* TextureManager::s_pInstance = 0;
 
-bool  TextureManager::(std::string fileName,  std::string id, SDL_Renderer* pRenderer)
+bool  TextureManager::load (std::string fileName,  std::string id, SDL_Renderer* pRenderer)
 {
   SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
   if (pTempSurface == 0)
@@ -17,7 +17,7 @@ bool  TextureManager::(std::string fileName,  std::string id, SDL_Renderer* pRen
   SDL_FreeSurface(pTempSurface);
   if (pTecxture != 0)
     {
-      m_texturemap[id] = pTecxture;
+      m_textureMap[id] = pTecxture;
       return true;
     }
     return false;
@@ -26,7 +26,7 @@ bool  TextureManager::(std::string fileName,  std::string id, SDL_Renderer* pRen
 void TextureManager::draw(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_Renderer *pRenderer, SDL_RendererFlip flip)
 {
   SDL_Rect srcRect;
-  SLD_Rect destRect;
+  SDL_Rect destRect;
 
   srcRect.x = 0;
   srcRect.y = 0;
@@ -35,5 +35,5 @@ void TextureManager::draw(std::string id, int x, int y, int width, int height, i
   destRect.x = x;
   destRect.y = y;
 
-  SDL_RenderCopyEx(pRenderer, m_texturemap[id], &srcRect, &destRect, 0, 0, flip);
+  SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
